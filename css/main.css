@@ -1,0 +1,84 @@
+body {
+    background-color: #000;
+    font-family: "Barlow Condensed","Source Sans Pro", sans-serif;
+    box-sizing: border-box;
+    min-width: 400px;
+  }
+  
+  #start {
+    color: white;
+    font-size: 4rem;
+    font-weight: bold;
+    position: relative;
+    text-decoration: none;
+    top: 14rem;
+    
+  }
+  
+  #game {
+    background-color: #111;
+    height: 400px;
+    margin: 0 auto;
+    overflow: hidden;
+    position: relative;
+    text-align: center;
+    width: 400px;
+  }
+  
+  #scoreboard {
+    display: block;
+    width: 22%;
+    height: auto;
+    color: goldenrod;
+    font-size: 2em;
+    font-weight: bold;
+    text-align: center;
+    padding: 10px;
+    margin: 0 auto;
+  }
+  
+  #evader {
+    background-color: white;
+    height: 20px;
+    position: absolute;
+    width: 40px;
+  }
+
+  .jade {
+    width: 20px;
+    height: 20px;
+    background: tan;
+    position: absolute;
+    border-radius: 50%;
+    top: 0;
+    left: 0;
+    box-sizing:border-box;  
+  }
+
+  button {
+    /* display: flex; */
+    width:100px;
+    height: 50px;
+    margin-bottom: 5px; 
+    color: #fff;
+    background: #000;
+    font: normal bold 26px "barlow",sans-serif;
+}
+
+  #m-buttons { 
+    display: none;
+    text-align: center;
+  }
+
+  @media (max-width: 600px) {
+    #scoreboard {
+      width: 100%;
+    }
+  
+    #m-buttons {
+      display: block;
+    }
+  }
+ 
+  
+
