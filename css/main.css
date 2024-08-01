@@ -1,22 +1,15 @@
 body {
-    background-color: #000;
+    background-color: #333745;
+    background-image: url('../images/topography.svg');
+    color: #fff;
     font-family: "Barlow Condensed","Source Sans Pro", sans-serif;
     box-sizing: border-box;
     min-width: 400px;
-  }
-  
-  #start {
-    color: white;
-    font-size: 4rem;
-    font-weight: bold;
-    position: relative;
-    text-decoration: none;
-    top: 14rem;
     
   }
-  
+
   #game {
-    background-color: #111;
+    background-color: #050a1d;
     height: 400px;
     margin: 0 auto;
     overflow: hidden;
@@ -25,60 +18,84 @@ body {
     width: 400px;
   }
   
-  #scoreboard {
-    display: block;
-    width: 22%;
-    height: auto;
-    color: goldenrod;
-    font-size: 2em;
+  #start {
+    color: white;
+    font-size: 4rem;
     font-weight: bold;
-    text-align: center;
-    padding: 10px;
-    margin: 0 auto;
-  }
-  
-  #evader {
-    background-color: white;
-    height: 20px;
-    position: absolute;
-    width: 40px;
-  }
-
-  .jade {
-    width: 20px;
-    height: 20px;
-    background: tan;
-    position: absolute;
-    border-radius: 50%;
-    top: 0;
-    left: 0;
-    box-sizing:border-box;  
-  }
-
-  button {
-    /* display: flex; */
-    width:100px;
-    height: 50px;
-    margin-bottom: 5px; 
-    color: #fff;
-    background: #000;
-    font: normal bold 26px "barlow",sans-serif;
-}
-
-  #m-buttons { 
-    display: none;
-    text-align: center;
-  }
-
-  @media (max-width: 600px) {
-    #scoreboard {
-      width: 100%;
-    }
-  
-    #m-buttons {
-      display: block;
-    }
+    position: relative;
+    text-decoration: none;
+    top: 9rem;
+    
   }
  
-  
+#evader {
+  background-image: linear-gradient( 
+    180deg,
+    hsl(58deg 95% 61%) 1%,
+    hsl(58deg 77% 47%) 66%,
+    hsl(58deg 60% 33%) 100%
+  );
+  display: none;
+  height: 20px;
+  position: absolute;
+  width: 40px;
+}
+
+.jade {
+  width: 20px;
+  height: 20px;
+  background-image: linear-gradient(
+    0deg,
+    hsl(160deg 100% 44%) 0%,
+    hsl(160deg 100% 36%) 39%,
+    hsl(160deg 100% 28%) 61%,
+    hsl(160deg 100% 18%) 100%
+  );
+  position: absolute;
+  border-radius: 50%;
+  top: 0;
+  left: 0;
+  box-sizing:border-box;  
+}
+
+.small-text {
+  font-size: 12px;
+  color: #fff;
+  line-height: 1.2;
+}
+
+#scoreboard {
+  width: 22%;
+  height: auto;
+  margin: 0 auto;
+  padding: 10px;
+  position: relative;
+  bottom: 410px;
+  text-align: center;
+}
+
+#points {
+  display: none;
+  color: #00A36CF2;
+  font-size: 2em;
+  font-weight: bold;
+}
+
+
+
+#m-buttons { 
+  display: none;
+  text-align: center;
+}
+
+@media (max-width: 600px) {
+  #scoreboard {
+    width: 100%;
+  }
+
+  #m-buttons {
+    display: block;
+  }
+}
+
 
