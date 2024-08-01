@@ -35,7 +35,7 @@ body {
     hsl(58deg 77% 47%) 66%,
     hsl(58deg 60% 33%) 100%
   );
-  display: none;
+  display: block;
   height: 20px;
   position: absolute;
   width: 40px;
@@ -75,7 +75,7 @@ body {
 }
 
 #points {
-  display: none;
+  display: block;
   color: #00A36CF2;
   font-size: 2em;
   font-weight: bold;
