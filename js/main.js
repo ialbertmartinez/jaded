@@ -2,12 +2,16 @@
 const game = document.getElementById("game");
 const evader = document.getElementById("evader");
 const start = document.getElementById("start");
+const scoreboard = document.getElementById('scoreboard');
+const points = document.getElementById("points");
 const heightOfImpact = 360;  // height of game - (evaderHeight + jadeHeight)
 // let mFrameId = window.requestAnimationFrame(makeJade);
 var gameInterval = null;
 let dir = 0;
 let eFrameId = "";
 let evaderPosX = 0;
+let jadePoints = 0;
+
 
 // start.addEventListener('click', startGame);
     
@@ -22,13 +26,13 @@ function makeJade(x) {
     game.appendChild(jade);
     
     function moveJade(){
-        console.log(`1 ${jade.style.top} | ${top}`);
         jade.style.top = `${top}px`; 
-        console.log(`2 ${jade.style.top} | ${top}`);
 
         if(top === 360) {
             if(!checkImpact(jade)) {
                 console.log("Evaded Jade");
+                jadePoints += 1; // increment points by 1
+                points.textContent = `${jadePoints}`; // update the user 
             }
             else {
                 cancelAnimationFrame(jFrameId);
@@ -65,7 +69,10 @@ function checkImpact(jade){
 
 function gameOver(){
     clearInterval(gameInterval);
-    console.log("Player is now jaded!");
+	alert(`Game Over. Hit by jade!\nYou scored ${jadePoints} points\nPlay again!`);
+    jadePts = 0;
+    points.textContent = `${jadePts}`;
+	
 }
 
 function evaderDirectionHandler(e) {
@@ -112,11 +119,14 @@ function propToInt(p){
 function startGame(){
     start.style.display = "none";
     evader.style.display = "block";
+    scoreboard.style.display = "block";
+    
     window.addEventListener('keydown', evaderDirectionHandler);
     window.addEventListener("keyup", stopEvader);
 
-    // gameInterval = setInterval(function() {
-    //     makeJade(randomNumber())
-    // }, 5000);
+    gameInterval = setInterval(function() {
+        makeJade(randomNumber())
+    }, 5000);
 }
 
+startGame();
