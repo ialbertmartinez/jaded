@@ -5,6 +5,10 @@ const start = document.getElementById("start");
 const heightOfImpact = 360;  // height of game - (evaderHeight + jadeHeight)
 // let mFrameId = window.requestAnimationFrame(makeJade);
 var gameInterval = null;
+let dir = 0;
+let eFrameId = "";
+let evaderPosX = 0;
+
 // start.addEventListener('click', startGame);
     
 function makeJade(x) {
@@ -64,6 +68,34 @@ function gameOver(){
     console.log("Player is now jaded!");
 }
 
+function evaderDirectionHandler(e) {
+    const key = e.key;
+	console.log(`key: ${key}`);
+
+	if (key === "ArrowRight") {
+		dir = 1; // dir: 1 = right
+		moveEvader();
+	} else 
+    if (key === "ArrowLeft") {
+		dir = 2; // dir: 2 = left
+		moveEvader();
+	}
+}
+
+function moveEvader() {
+    const gameWidth = 400;
+	if (dir == 2 && (evaderPosX - 4) > 0) {
+		evaderPosX -= 4;
+		evader.style.left = `${evaderPosX}px`; // left prop. is used in calc if jade hit evader
+		eFrameId = window.requestAnimationFrame(moveEvader);
+	} else
+		if (dir == 1 && (evaderPosX + 4) < (gameWidth - 40)) {
+			evaderPosX += 4;
+			evader.style.left = `${evaderPosX}px`;
+			eFrameId = window.requestAnimationFrame(moveEvader);
+		}
+}
+
 function randomNumber (){
     return Math.floor(Math.random() * (400 - 20) + 1);
 }
@@ -74,8 +106,12 @@ function propToInt(p){
 
 function startGame(){
     start.style.display = "none";
-    gameInterval = setInterval(function() {
-        makeJade(randomNumber())
-    }, 5000);
+    evader.style.display = "block";
+    window.addEventListener('keydown', evaderDirectionHandler);
+
+
+    // gameInterval = setInterval(function() {
+    //     makeJade(randomNumber())
+    // }, 5000);
 }
 
