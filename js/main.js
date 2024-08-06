@@ -96,6 +96,11 @@ function moveEvader() {
 		}
 }
 
+function stopEvader() {
+	dir = 0;
+	cancelAnimationFrame(eFrameId);
+}
+
 function randomNumber (){
     return Math.floor(Math.random() * (400 - 20) + 1);
 }
@@ -108,7 +113,7 @@ function startGame(){
     start.style.display = "none";
     evader.style.display = "block";
     window.addEventListener('keydown', evaderDirectionHandler);
-
+    window.addEventListener("keyup", stopEvader);
 
     // gameInterval = setInterval(function() {
     //     makeJade(randomNumber())
