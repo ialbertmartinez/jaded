@@ -6,9 +6,9 @@ const scoreboard = document.getElementById('scoreboard');
 const points = document.getElementById("points");
 const heightOfImpact = 360;  // height of game - (evaderHeight + jadeHeight)
 // let mFrameId = window.requestAnimationFrame(makeJade);
-var gameInterval = null;
+let gameInterval = null;
 let dir = 0;
-let eFrameId = "";
+let jFrameId, eFrameId = "";
 let evaderPosX = 0;
 let jadePoints = 0;
 
@@ -18,7 +18,8 @@ let jadePoints = 0;
 function makeJade(x) {
     var top = 0;
     const jade = document.createElement('div');
-    let jFrameId = window.requestAnimationFrame(moveJade);
+    // let jFrameId = window.requestAnimationFrame(moveJade);
+    jFrameId = window.requestAnimationFrame(moveJade);
 
     jade.className = "jade";
     jade.style.left = `${x}px`;
@@ -69,9 +70,11 @@ function checkImpact(jade){
 
 function gameOver(){
     clearInterval(gameInterval);
+    window.removeEventListener("keydown" ,evaderDirectionHandler);
+    cancelAnimationFrame(eFrameId);
 	alert(`Game Over. Hit by jade!\nYou scored ${jadePoints} points\nPlay again!`);
-    jadePts = 0;
-    points.textContent = `${jadePts}`;
+    jadePoints = 0;
+    points.textContent = `${jadePoints}`;
 	
 }
 
@@ -119,7 +122,7 @@ function propToInt(p){
 function startGame(){
     start.style.display = "none";
     evader.style.display = "block";
-    scoreboard.style.display = "block";
+    scoreboard.style.display = "block"; 
     
     window.addEventListener('keydown', evaderDirectionHandler);
     window.addEventListener("keyup", stopEvader);
@@ -129,4 +132,3 @@ function startGame(){
     }, 5000);
 }
 
-startGame();
