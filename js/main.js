@@ -38,10 +38,14 @@ function makeJade(x) {
                 points.textContent = `${jadePoints}`; // update the user 
             }
             else {
-                cancelAnimationFrame(jFrameId);
+                window.cancelAnimationFrame(jFrameId);
                 gameOver();
                 return;
             }
+        } else
+        if(top === 400) {
+            window.cancelAnimationFrame(jFrameId);
+            
         }
         console.log(`3 ${jade.style.top} | ${top}`);
         top += 2;
@@ -75,8 +79,8 @@ function gameOver(){
     let startText = document.getElementById("start-text");
     
     clearInterval(gameInterval);
-    cancelAnimationFrame(eFrameId);
-	
+    window.cancelAnimationFrame(jFrameId);
+    window.cancelAnimationFrame(eFrameId);
     removeJades();
     window.removeEventListener("keydown" ,evaderDirectionHandler);
     start.addEventListener("click", startGame);
@@ -84,11 +88,20 @@ function gameOver(){
     start.style.display = "block";
     evader.style.display = "none";
     scoreboard.style.display = "none";
-    
+    alert(`Game Over. Hit by jade!\nYou scored ${displayFinalScore()}\nPlay again!`);
     jadePoints = 0;
     points.textContent = `${jadePoints}`;
-    alert(`Game Over. Hit by jade!\nYou scored ${jadePoints} points\nPlay again!`);
-	
+    console.log("game is over");
+}
+
+function displayFinalScore(){
+    let results = "";
+
+    if(jadePoints > 1) {results = `${jadePoints} points!`;}
+    else if(jadePoints === 1) {results = "1 point.";}
+    else {results = "No points.";}
+    
+    return results;
 }
 
 function evaderDirectionHandler(e) {
