@@ -8,9 +8,11 @@ const heightOfImpact = 360;  // height of game - (evaderHeight + jadeHeight)
 // let mFrameId = window.requestAnimationFrame(makeJade);
 let gameInterval = null;
 let dir = 0;
-let jFrameId, eFrameId = "";
+let jFrameId = "";
+let eFrameId = "";
 let evaderPosX = 0;
 let jadePoints = 0;
+let jades = [];
 
 
 // start.addEventListener('click', startGame);
@@ -46,7 +48,8 @@ function makeJade(x) {
         console.log(`4 ${jade.style.top} | ${top}`);
         jFrameId = window.requestAnimationFrame(moveJade);
     }
-    // moveJade()
+    jades.push(jade);
+    return jade;
 }
     // makeJade(randomNumber());
 
@@ -69,12 +72,22 @@ function checkImpact(jade){
 }
 
 function gameOver(){
+    let startText = document.getElementById("start-text");
+    
     clearInterval(gameInterval);
-    window.removeEventListener("keydown" ,evaderDirectionHandler);
     cancelAnimationFrame(eFrameId);
-	alert(`Game Over. Hit by jade!\nYou scored ${jadePoints} points\nPlay again!`);
+	
+    removeJades();
+    window.removeEventListener("keydown" ,evaderDirectionHandler);
+    start.addEventListener("click", startGame);
+    startText.textContent = "TRY AGAIN"
+    start.style.display = "block";
+    evader.style.display = "none";
+    scoreboard.style.display = "none";
+    
     jadePoints = 0;
     points.textContent = `${jadePoints}`;
+    alert(`Game Over. Hit by jade!\nYou scored ${jadePoints} points\nPlay again!`);
 	
 }
 
@@ -118,6 +131,12 @@ function randomNumber (){
 function propToInt(p){
     return parseInt(p.split('px')[0]) || 0;
 }
+// clear jade elements from the DOM
+function removeJades(){
+    for(let jade of jades) {
+        jade.remove(jade);
+    }
+}
 
 function startGame(){
     start.style.display = "none";
@@ -126,9 +145,11 @@ function startGame(){
     
     window.addEventListener('keydown', evaderDirectionHandler);
     window.addEventListener("keyup", stopEvader);
+    window.removeEventListener("click", startGame);
 
     gameInterval = setInterval(function() {
         makeJade(randomNumber())
     }, 5000);
 }
 
+start.addEventListener("click", startGame);
