@@ -1,3 +1,9 @@
+/*
+code inspired and base idea from RockDodger game I learned while attending FlatIron's Software Engineering Bootcamp
+
+
+
+*/
 // window.onload = function(){
 const game = document.getElementById("game");
 const evader = document.getElementById("evader");
@@ -12,7 +18,7 @@ let dir = 0;
 let jFrameId = "";
 let eFrameId = "";
 let evaderPosX = 0;
-let jadePoints = 0; 
+let jadePoints = 0;
 let jades = [];
 
 // for testing purposes
@@ -31,10 +37,9 @@ let status = "";
 // start.addEventListener('click', startGame);
     
 function makeJade(x) {
-    var top = 0;
     const jade = document.createElement('div');
-    // let jFrameId = window.requestAnimationFrame(moveJade);
-    jFrameId = window.requestAnimationFrame(moveJade);
+    let jFrameId = window.requestAnimationFrame(moveJade);
+    var top = 0;
 
     jade.className = "jade";
     jade.style.left = `${x}px`;
@@ -43,28 +48,58 @@ function makeJade(x) {
     
     function moveJade(){
         jade.style.top = `${top}px`; 
+        let jTop = propToInt(jade.style.top);
+        
+        if(jTop >= 0) { 
+            // jade.remove(jade); console.log("Jade Removed");}
+            if(jTop === 360) {
+                if(!checkImpact(jade)) {
+                    console.log("Evaded Jade");
+                    jadePoints += 1; // increment points by 1
+                    points.textContent = `${jadePoints}`; // update the user 
+                }
+                else {
+                    gameOver();
+                    return;
+                }
+            } 
+            top += dropRate;
+            window.requestAnimationFrame(moveJade);
+            
+            if(top >= 400) {
+                window.cancelAnimationFrame(jFrameId);
+                jade.remove(jade); console.log("Jade Removed");}
 
-        if(top === 360) {
+                
+            }
+        
+    }
+    /* function moveJade(){
+        jade.style.top = `${top}px`; 
+        let jTop = propToInt(jade.style.top);
+        
+        if(jTop > 400) { jade.remove(jade); console.log("Jade Removed");}
+        if(jTop === 360) {
             if(!checkImpact(jade)) {
                 console.log("Evaded Jade");
                 jadePoints += 1; // increment points by 1
                 points.textContent = `${jadePoints}`; // update the user 
-                // setLevel();
-                // add point check to increase difficulty after certain number of points have accrued
             }
             else {
-                window.cancelAnimationFrame(jFrameId);
                 gameOver();
                 return;
             }
-        } else
-        if(top === 400) {
-            window.cancelAnimationFrame(jFrameId);
-
-        }
+        } 
         top += dropRate;
-        jFrameId = window.requestAnimationFrame(moveJade);
-    }
+        window.requestAnimationFrame(moveJade);
+        if(top >= 400) {
+            window.cancelAnimationFrame(jFrameId);
+            
+        }
+        
+    } */
+        window.requestAnimationFrame(moveJade);
+
     jades.push(jade);
     return jade;
 }
@@ -119,65 +154,69 @@ function checkImpact(jade){
 //     // increase jade drop rate (speed @ which jade falls down)
 // }
 
-function gameOver(){
-    let startText = document.getElementById("start-text");
-    
+function gameOver(){        
+    let finalScore = getFinalScore();
     clearInterval(gameInterval);
+    removeJades();
+
     window.cancelAnimationFrame(jFrameId);
     window.cancelAnimationFrame(eFrameId);
-    removeJades();
     window.removeEventListener("keydown" ,evaderDirectionHandler);
+    // getFinalScore();
+    initRetry();
+    alert(finalScore);
+    console.log("-- Game is over --");
+    // return;
+}
+
+function getFinalScore(){
+    let jPoints = jadePoints;
+    let results = (jPoints === 1) ? "point" : "points";
+    let finalInfo = `GAME OVER. Hit by jade!\nYou scored ${jPoints} ${results}\nPlay again!`;
+    return finalInfo;
+}
+
+function initRetry(){
+    let startText = document.getElementById("start-text");
+    jadePoints = 0;
+    points.textContent = `${jadePoints}`;
     start.addEventListener("click", startGame);
     startText.textContent = "TRY AGAIN"
     start.style.display = "block";
     evader.style.display = "none";
     scoreboard.style.display = "none";
-    alert(`Game Over. Hit by jade!\nYou scored ${displayFinalScore()}\nPlay again!`);
-    jadePoints = 0;
-    points.textContent = `${jadePoints}`;
-    console.log("-- Game is over --");
-}
-
-function displayFinalScore(){
-    let results = "";
-
-    if(jadePoints > 1) {results = `${jadePoints} points!`;}
-    else if(jadePoints === 1) {results = "1 point.";}
-    else {results = "No points.";}
-    
-    return results;
 }
 
 function evaderDirectionHandler(e) {
     const key = e.key;
-	// console.log(`key: ${key}`);
+    // console.log(`key: ${key}`);
 
-	if (key === "ArrowRight") {
-		dir = 1; // dir: 1 = right
-		moveEvader();
-	} else 
+    if (key === "ArrowRight") {
+        dir = 1; // dir: 1 = right
+        moveEvader();
+    } else 
     if (key === "ArrowLeft") {
-		dir = 2; // dir: 2 = left
-		moveEvader();
-	}
+        dir = 2; // dir: 2 = left
+        moveEvader();
+    }
 }
 
 function moveEvader() {
-	if (dir == 2 && (evaderPosX - 4) > 0) {
-		evaderPosX -= 4;
-		evader.style.left = `${evaderPosX}px`; // left prop. is used in calc if jade hit evader
-		eFrameId = window.requestAnimationFrame(moveEvader);
-	} else
-		if (dir == 1 && (evaderPosX + 4) < (gameWidth - 40)) {
-			evaderPosX += 4;
-			evader.style.left = `${evaderPosX}px`;
-			eFrameId = window.requestAnimationFrame(moveEvader);
-		}
+    if (dir == 2 && (evaderPosX - 4) > 0) {
+        evaderPosX -= 4;
+        evader.style.left = `${evaderPosX}px`; // left prop. is used in calc if jade hit evader
+        eFrameId = window.requestAnimationFrame(moveEvader);
+    } else
+        if (dir == 1 && (evaderPosX + 4) < (gameWidth - 40)) {
+            evaderPosX += 4;
+            evader.style.left = `${evaderPosX}px`;
+            eFrameId = window.requestAnimationFrame(moveEvader);
+        }
 }
 
 function stopEvader() {
-	dir = 0;
-	window.cancelAnimationFrame(eFrameId);
+    dir = 0;
+    window.cancelAnimationFrame(eFrameId);
 }
 
 function randomNumber (){
@@ -189,8 +228,8 @@ function propToInt(p){
 }
 // clear jade elements from the DOM
 function removeJades(){
-    for(let jade of jades) {
-        jade.remove(jade);
+    for(let j of jades) {
+        j.remove(j);
     }
 }
 
@@ -211,8 +250,8 @@ function startGame(){
 start.addEventListener("click", startGame);
 
 /*  each level can change: 
-     - rate that jade is made (how often a new jade pops up on screen)
-     - the speed that jade moves at
-     - the width of the available space to move left 
-       and right (obviously decreasing width and/or height 😈)
+        - rate that jade is made (how often a new jade pops up on screen)
+        - the speed that jade moves at
+        - the width of the available space to move left 
+        and right (obviously decreasing width and/or height 😈)
 */
