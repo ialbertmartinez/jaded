@@ -18,7 +18,7 @@ let dir = 0;
 let jFrameId = "";
 let eFrameId = "";
 let evaderPosX = 0;
-let jadePoints = 0;
+let jadePoints = 0;                                                         
 let jades = [];
 
 // for testing purposes
@@ -51,7 +51,8 @@ function makeJade(x) {
         let jTop = propToInt(jade.style.top);
         
         if(jTop >= 0) { 
-            // jade.remove(jade); console.log("Jade Removed");}
+            // jade.remove(jade); 
+            // console.log("Jade Removed");}
             if(jTop === 360) {
                 if(!checkImpact(jade)) {
                     console.log("Evaded Jade");
@@ -64,14 +65,16 @@ function makeJade(x) {
                 }
             } 
             top += dropRate;
-            window.requestAnimationFrame(moveJade);
+            jFrameId = window.requestAnimationFrame(moveJade);
             
             if(top >= 400) {
                 window.cancelAnimationFrame(jFrameId);
-                jade.remove(jade); console.log("Jade Removed");}
+                jade.remove(jade); 
+                console.log("Jade Removed");
+            }
 
                 
-            }
+        }
         
     }
     /* function moveJade(){
