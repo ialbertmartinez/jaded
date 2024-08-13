@@ -1,7 +1,10 @@
 /*
-code inspired and base idea from RockDodger game I learned while attending FlatIron's Software Engineering Bootcamp
+code inspired and base idea from RockDodger game by FlatIron/Learn Co
+I learned while attending Learn Co./FlatIron's Software Engineering Bootcamp:
+https://github.com/learn-co-students/javascript-rock-dodger-bootcamp-prep-000
 
-
+This is a great place to learn to code. Curriculum is comprehensive and the instructors are knowledgeable. 
+Projects are challenging and do help you apply what you learned in the course.
 
 */
 // window.onload = function(){
