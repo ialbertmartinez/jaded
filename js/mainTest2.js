@@ -16,10 +16,10 @@ let direction = 0;
 let evaderPosX = 0;
 let jadePoints = 0;                                                         
 let jades = [];
-let jadeFrame = "";
+let jadeFrameId = "";
+let evaderFrameId = "";
 
 const gameHeight = 400;
-const gameWidth = 400;
 const evaderHeight = 20;
 const evaderWidth = 40;
 const jadeHeight = 20;
@@ -40,7 +40,6 @@ function createJade(x) {
         const newTop = jadeTop + acceleration;
 
         if(jadeTop === 360) {
-            console.log(`Top check: ${jadeTop} \t${newTop}`)
             if (!checkImpact(jade)) { 
                 jadePoints += 1; // increment points by 1
                 points.textContent = `${jadePoints}`; // update the user
@@ -54,12 +53,12 @@ function createJade(x) {
             return;
         } 
 
-        jade.style.top = `${jadeTop + acceleration}px`;
-        jadeFrame = window.requestAnimationFrame(moveJade);
+        jade.style.top = `${newTop}px`;
+        jadeFrameId = window.requestAnimationFrame(moveJade);
         console.log(`jadePoints: ${jadePoints}\njadeTop: ${jadeTop}\nnewTop: ${newTop}`);
     }
 
-    jadeFrame = window.requestAnimationFrame(moveJade);
+    jadeFrameId = window.requestAnimationFrame(moveJade);
     jades.push(jade);
     return jade;
 }
@@ -169,31 +168,38 @@ function getFinalScore() {
     return `GAME OVER. You're now jaded!\nYou scored ${jadePoints} ${isPlural}\nTap or click to Try again!`;
 }
 
+// Handles the direction of the evader based on key pressed
+function evaderDirectionHandler(e) {
+    if (e.key === "ArrowRight") {
+        direction = 1;
+        moveEvader();
+    } else if (e.key === "ArrowLeft") {
+        direction = 2;
+        moveEvader();
+    }
+    
+}
+
 // Moves the evader based on direction
 function moveEvader() {
+    const gameWidth = 400;
     if (direction === 2 && evaderPosX - acceleration > 0) {
         evaderPosX -= 4;
     } else if (direction === 1 && evaderPosX < gameWidth - (evaderWidth + acceleration)) {
         evaderPosX += 4;
     }
     evader.style.left = `${evaderPosX}px`;
-    requestAnimationFrame(moveEvader);
+    evaderFrameId = window.requestAnimationFrame(moveEvader);
+
 }
 
 // Stops the evader from moving
 function stopEvader() {
     direction = 0;
+    window.cancelAnimationFrame(evaderFrameId);
 }
 
-// Handles the direction of the evader based on key pressed
-function evaderDirectionHandler(e) {
-    if (e.key === "ArrowRight") {
-        direction = 1;
-    } else if (e.key === "ArrowLeft") {
-        direction = 2;
-    }
-    moveEvader();
-}
+
 
 // Generates a random number within the game width
 function randomNumber() {
