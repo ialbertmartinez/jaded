@@ -73,12 +73,12 @@ function makeJade(x) {
 
 // function determines if jade hit evader 
 function checkImpact(jade){
-    const jadeTop = propToInt(jade.style.top);
+    const jadeTop = parseInt(jade.style.top);
     
     if(jadeTop === heightOfImpact) {
-        const evaderLeftEdge = propToInt(evader.style.left);
+        const evaderLeftEdge = parseInt(evader.style.left);
         const evaderRightEdge = evaderLeftEdge + 40;
-        const jadeLeftEdge = propToInt(jade.style.left);
+        const jadeLeftEdge = parseInt(jade.style.left);
         const jadeRightEdge = jadeLeftEdge + 20;
         
         if(jadeLeftEdge < evaderLeftEdge && jadeRightEdge > evaderLeftEdge || // evader's left side is hit
@@ -183,10 +183,7 @@ function stopEvader() {
 function randomNumber (){
     return Math.floor(Math.random() * (400 - 20) + 1);
 }
-// function extracts int value from css prop containing 'px' suffix
-function propToInt(p){
-    return parseInt(p.split('px')[0]) || 0;
-}
+
 // clear jade elements from the DOM
 function removeJades(){
     for(let jade of jades) {
