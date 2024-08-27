@@ -101,6 +101,22 @@ h1 > span {
   display: none;
 }
 
+#high-scores {
+  position: relative;
+  top: -400px;
+  right: 0px;
+  width: 100%;
+  height: auto;
+}
+
+#high-scores-list {
+  display: flex;
+  flex-flow: column nowrap;
+  list-style-type: decimal;
+  font-family: "barlow", sans-serif;
+}
+
+
 #points {
   display: block;
   color: #00A36CF2;
