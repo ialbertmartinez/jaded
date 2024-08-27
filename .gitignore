@@ -1,6 +1,6 @@
 .DS_Store
 .vscode/**
 .vscode/settings.json
-.mainTest2-scratch.js
-.maintest.js
-.main.js
+./js/mainTest2-scratch_sheet.js
+./js/maintest.js
+./js/main.js
