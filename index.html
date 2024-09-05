@@ -11,30 +11,33 @@
 <body>
     <header>
         <h1>Jaded</h1>
-        <p id="player-info"></p>
+        <p>Evade the jade</p>
     </header>
-    <div id="game">
+    
+    <main id="game">
         <a id="start" href="#">
             <span class="small-text">tap or click to</span>
             <p id="start-text">START</p>
         </a>
         <div id="evader" style="bottom: 0px; left:0;"></div>
-    </div>
-    <aside id="high-scores">
-        <h2>High Scores List</h2>
-        <ul id="high-scores-list">
+    </main>
+
+    <aside class="high-scores">
+        <h2>High Scores List <i class="high-scores-header-icon"> </i></h2>
+        <ul class="high-scores-list">
             <li class="high-scores-list-item">"88"</li>
             <li class="high-scores-list-item">"16"</li>
             <li class="high-scores-list-item">"08"</li>
         </ul>
     </aside>
+   
     <div id="scoreboard">
         <span id="points">0</span>
     </div>
 
     <div id="m-buttons">
         <button type="button" id="leftBtn">&larr;</button>		
-        <button type="button" id="rig                                                                                                   htBtn">&rarr;</button>
+        <button type="button" id="rightBtn">&rArr;</button>                                                                                                   htBtn">&rarr;</button>
     </div>
     
     <!-- will add a small section to provide player 

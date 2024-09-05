@@ -10,8 +10,10 @@ const start = document.getElementById("start");
 const scoreboard = document.getElementById('scoreboard');
 const points = document.getElementById("points");
 const playerInfo = document.getElementById("player-info");
-// const highScoresList = document.getElementById("high-scores-list");
-const acceleration = 2;
+// const highScoresList = document.querySelector(".high-scores-list");
+const closeBtn = document.getElementById("high-scores-list-close-btn")
+const openBtn = document.getElementById("high-scores-list-open-btn");
+const acceleration = 5;
 
 let gameInterval;
 let direction = 0;
@@ -76,36 +78,6 @@ function checkImpact(jade) {
 	}
 }
 
-// Handles the game over logic
-function gameOver() {
-	saveHighScore(Number(jadePoints));
-	displayHighScores();
-	clearInterval(gameInterval);
-	alert(getFinalScore());
-	start.style.display = "block";
-	window.removeEventListener("keydown", evaderDirectionHandler);
-}
-
-// Resets the game state
-function resetGame() {
-	jadePoints = 0;
-	points.textContent = `${jadePoints}`;
-	evader.style.left = "0px";
-	jades.forEach(jade => jade.remove(jade));
-	jades = [];
-}
-
-
-
-// Generates final and high scores
-function getFinalScore() {
-	// Save score
-	const isPlural = jadePoints === 1 ? "point" : "points";
-	// Retrieve and validate the score
-
-	return `GAME OVER. You're now officially jaded!\nYou scored ${jadePoints} ${isPlural}\nTap or click to Try again!`;
-}
-
 // Handles the direction of the evader based on key pressed
 function evaderDirectionHandler(e) {
 	if (e.key === "ArrowRight") {
@@ -142,34 +114,54 @@ function stopEvader() {
 	window.cancelAnimationFrame(evaderFrameId);
 }
 
-var scoreX;
+var highScoresX;
 function saveHighScore(score) {
+	let currentScore = [];
 	// Retrieve existing high scores or create an empty array if none exist
 	let highScores = JSON.parse(localStorage.getItem('highScores')) || [];
-	let scoreX = JSON.parse(localStorage.getItem('highScores')) || [];
+	highScoresX = JSON.parse(localStorage.getItem('highScores')) || [];
 	// Add highscore if it is a greater score
 	// if(score > )
-	console.log(scoreX);
-	highScores.push(score);
+
+	highScores.forEach((s) => {
+		if(s > 0) {
+			currentScore.push(s);
+			console.log(`currentScore = ${currentScore}`);
+		}
+	});
+
+	if(score > currentScore[currentScore.length - 1]) {
+			
+		highScores.push(score);
+		highScoresX.push(score);
+	}
+
+
 
 	// Sort the scores in descending order and limit to top 10
 	highScores.sort((a, b) => b - a);
-	highScores = highScores.slice(0, 10);
+	highScores =   highScores.slice(0, 10);
+
+	highScoresX.sort((a, b) => b - a);
+	highScoresX = highScoresX.slice(0, 10);
 
 	// Save the updated list back to localStorage
-	localStorage.setItem('highScores', JSON.stringify(highScores));
+	localStorage.setItem('highScores',  JSON.stringify(highScores));
+	localStorage.setItem('highScoresX', JSON.stringify(highScoresX));
 }
 
+var highScoresX2
 // Function to retrieve and display high scores
 function displayHighScores() {
 	// Retrieve the high scores from localStorage
 	let highScores = JSON.parse(localStorage.getItem('highScores')) || [];
+	highScoresX2 = JSON.parse(localStorage.getItem('highScores')) || [];
 
 	// Get the HTML element where the scores will be displayed
-	const highScoresList = document.getElementById("high-scores-list");
+	const highScoresList = document.querySelector(".high-scores-list");
 
 	// Clear any existing content in the list
-	highScoresList.tetxtContent = '';
+	highScoresList.textContent = '';
 
 	// Add each high score as a list item
 	highScores.forEach(score => {
@@ -180,18 +172,42 @@ function displayHighScores() {
 	});
 }
 
+function resetHighScores() {
+	localStorage.clear();
+}
 
-
-// Generates a random number within the game width
+// select a random number as drop spot for each jade
 function randomNumber() {
 	const gameWidth = 400;
 	const jadeWidth = 20;
 	return Math.floor(Math.random() * (gameWidth - jadeWidth) + 1);
 }
 
+// Handles the game over logic
+function gameOver() {
+	const isPlural = jadePoints === 1 ? "point" : "points";
+	
+	saveHighScore(Number(jadePoints));
+	displayHighScores();
+	clearInterval(gameInterval);
+	alert(`GAME OVER!\nYou're now officially jaded!
+	\nYou scored ${jadePoints} ${isPlural}`);
+	evader.style.display = "none";
+	start.style.display = "block";
+	window.removeEventListener("keydown", evaderDirectionHandler);
+}
+
+// Resets the game state
+function resetGame() {
+	jadePoints = 0;
+	points.textContent = `${jadePoints}`;
+	evader.style.left = "0px";
+	jades.forEach(jade => jade.remove(jade));
+	jades = [];
+}
+
 // Starts the game
 function startGame() {
-	localStorage.clear();
 	resetGame();
 	start.style.display = "none";
 	evader.style.display = "block";

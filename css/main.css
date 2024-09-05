@@ -1,142 +1,168 @@
 body {
-    background-color: #333745;
-    background-image: url('../images/topography.svg');
-    color: #fff;
-    font-family: "Barlow Condensed","Source Sans Pro", sans-serif;
-    box-sizing: border-box;
-    min-width: 400px;
-  }
+	background-color: #333745;
+	background-image: url('../images/topography.svg');
+	color: #fff;
+	font-family: "Barlow Condensed", "Source Sans Pro", sans-serif;
+	box-sizing: border-box;
+	/* min-width: 400px; */
+}
 
-header {
-  display: flex;
-  flex-flow: column nowrap;
-  align-items: center;
-  padding-top: 3rem;
+body > header {
+	display: flex;
+	flex-flow: column nowrap;
+	align-items: center;
+	padding-top: 3rem;
 }
 
 h1 {
-  line-height: 1;
-  margin: 0;
-  padding: 0;
-  color: ghostWhite;
+	line-height: 1;
+	margin: 0;
+	padding: 0;
+	color: ghostWhite;
 }
 
 h1 > span {
-  color: #fff;
+	color: #fff;
 }
 
-  #game {
-    background-color: #050a1d;
-    height: 400px;
-    margin: 0 auto;
-    overflow: hidden;
-    position: relative;
-    text-align: center;
-    width: 400px;
-    box-shadow: rgba(0, 0, 0, 0.16) 0px 10px 36px 0px, 
-                rgba(0, 0, 0, 0.06) 0px 0px 0px 1px;
-  }
-  
-  #start {
-    color: white;
-    font-size: 4rem;
-    font-weight: bold;
-    line-height: 1;
-    position: absolute;
-    text-decoration: none;
-    top: 28%;
-    left: 10%;
-    right: 10%;
-  }
-  
-  .small-text {
-    font-size: 16px;
-    color: #fff;
-    line-height: 1.2;
-  }
+#game {
+	background-color: #050a1d;
+	height: 400px;
+	margin: 0 auto;
+	overflow: hidden;
+	position: relative;
+	text-align: center;
+	width: 400px;
+	box-shadow: rgba(0, 0, 0, 0.16) 0px 10px 36px 0px,
+		rgba(0, 0, 0, 0.06) 0px 0px 0px 1px;
+		
 
-  #start-text {
-    margin: 0;
-    color: #faf43d;
-  }
- 
+}
+
+#start {
+	color: white;
+	font-size: 4rem;
+	font-weight: bold;
+	line-height: 1;
+	position: absolute;
+	text-decoration: none;
+	top: 28%;
+	left: 10%;
+	right: 10%;
+}
+
+.small-text {
+	font-size: 16px;
+	color: #fff;
+	line-height: 1.2;
+}
+
+#start-text {
+	margin: 0;
+	color: #faf43d;
+}
+
 #evader {
-  background-image: linear-gradient( 
-    180deg,
-    hsl(58deg 95% 61%) 1%,
-    hsl(58deg 77% 47%) 66%,
-    hsl(58deg 60% 33%) 100%
-  );
-  display: none;
-  height: 20px;
-  position: absolute;
-  width: 40px;
+	background-image: linear-gradient(180deg,
+			hsl(58deg 95% 61%) 1%,
+			hsl(58deg 77% 47%) 66%,
+			hsl(58deg 60% 33%) 100%);
+	display: none;
+	height: 20px;
+	position: absolute;
+	width: 40px;
 }
 
 .jade {
-  width: 20px;
-  height: 20px;
-  background-image: linear-gradient(
-    0deg,
-    hsl(160deg 100% 44%) 0%,
-    hsl(160deg 100% 36%) 39%,
-    hsl(160deg 100% 28%) 61%,
-    hsl(160deg 100% 18%) 100%
-  );
-  position: absolute;
-  border-radius: 50%;
-  top: 0;
-  left: 0;
-  box-sizing:border-box;  
+	width: 20px;
+	height: 20px;
+	background-image: linear-gradient(0deg,
+			hsl(160deg 100% 44%) 0%,
+			hsl(160deg 100% 36%) 39%,
+			hsl(160deg 100% 28%) 61%,
+			hsl(160deg 100% 18%) 100%);
+	position: absolute;
+	border-radius: 50%;
+	top: 0;
+	left: 0;
+	box-sizing: border-box;
 }
 
 #scoreboard {
-  width: 22%;
-  height: auto;
-  margin: 0 auto;
-  padding: 10px;
-  position: relative;
-  bottom: 410px;
-  text-align: center;
-  display: none;
+	width: 22%;
+	height: auto;
+	margin: 0 auto;
+	padding: 10px;
+	position: relative;
+	bottom: 410px;
+	text-align: center;
+	display: none;
 }
 
-#high-scores {
-  position: relative;
-  top: -400px;
-  right: 0px;
-  width: 100%;
-  height: auto;
+.high-scores {
+	display: flex;
+    width: 230px;
+    position: fixed;
+    z-index: 1;
+    top: 24%;
+    left: 0;
+    background-color: #050a1d5c;
+    overflow-x: hidden;
+    padding: 30px 30px 15px;
+    transition: 0.5s;
+    flex-direction: column;
+    align-items: center;
+    border-radius: 0 100px 100px 0;
+
 }
 
-#high-scores-list {
-  display: flex;
-  flex-flow: column nowrap;
-  list-style-type: decimal;
-  font-family: "barlow", sans-serif;
+.high-scores-list-item {
+	padding: 8px 8px 8px 32px;
+	text-decoration: none;
+	font-size: 25px;
+	color: #818181;
+	display: block;
+	transition: 0.3s;
 }
 
+.high-scores-list-item:hover {
+	color: #f1f1f1;
+  
+}
+
+#high-scores-header-icon {
+    background-image: url(../images/i_trophy.png);
+    width: 40px;
+    height: 40px;
+    padding: 31px;
+    position: relative;
+    left: 32px;
+    background-size: 50%;
+    background-repeat: no-repeat;
+    box-sizing: border-box;
+    background-position: center;
+    border-radius: 50%;
+    background-color: #000;
+}
 
 #points {
-  display: block;
-  color: #00A36CF2;
-  font-size: 2em;
-  font-weight: bold;
+	display: block;
+	color: #00A36CF2;
+	font-size: 2em;
+	font-weight: bold;
 }
 
-#m-buttons { 
-  display: none;
-  text-align: center;
+#m-buttons {
+	display: none;
+	text-align: center;
 }
 
 @media (max-width: 600px) {
-  #scoreboard {
-    width: 100%;
-  }
+	#scoreboard {
+		width: 100%;
+	}
 
-  #m-buttons {
-    display: block;
-  }
+	#m-buttons {
+		display: block;
+	}
 }
-
-
